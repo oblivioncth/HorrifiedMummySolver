@@ -51,6 +51,15 @@ std::string joinEnumVector(std::vector<T> enumVector, std::string delimter, bool
 	return joinedString;
 }
 
+template<class T>
+std::string toStringWithLocalGrouping(T number)
+{
+	std::stringstream ss;
+	ss.imbue(std::locale(""));
+	ss << std::fixed << number;
+	return ss.str();
+}
+
 class Path
 {
 public:
@@ -128,19 +137,19 @@ public:
 
 	std::vector<Path> generateMoveDecendants()
 	{
-		std::vector<Path> decendents;
+		std::vector<Path> descendants;
 		std::vector<Slot> possibleMoves = openSlotToMovableSlotMap.at(static_cast<Slot>(currentEmptySlotIndex()));
 
 		for (Slot move : possibleMoves)
 		{
 			if (!isBackwardsMove(move)) // Disallow backwards moves
 			{
-				decendents.push_back(Path(*this)); // Add copy of current instance to decendents vector
-				decendents.back().makeMove(move); // Advance copy to the next move
+				descendants.push_back(Path(*this)); // Add copy of current instance to descendants vector
+				descendants.back().makeMove(move); // Advance copy to the next move
 			}
 		}
 
-		return decendents;
+		return descendants;
 	}
 };
 
@@ -195,6 +204,13 @@ bool hasNumberDuplicates(std::vector<int> check)
 // Paths are allocated on the heap to prevent potential stack overflows
 Path getShortestPath(Path initialPath, long& iterationCount)
 {
+	// Initialize iteration tracker
+	iterationCount = 0;
+
+	// Check for already solved path cheese
+	if (initialPath.isComplete())
+		return initialPath;
+
 	// Shortest Path tracker
 	std::unique_ptr<Path> shortestPath = std::make_unique<Path>();
 
@@ -205,25 +221,29 @@ Path getShortestPath(Path initialPath, long& iterationCount)
 	pathProgressionQueue.push(std::make_unique<Path>(initialPath));
 
 	// Process all paths until the shortest possible is found
-	while (!pathProgressionQueue.empty())
+	while (!pathProgressionQueue.empty() && shortestPath->isNull())
 	{
 		// Current path (must be done in 2 steps due to unique_ptr use)
 		std::unique_ptr<Path> currentPath = std::move(pathProgressionQueue.front()); // Transfer ownership of queue front to this pointer
 		pathProgressionQueue.pop(); // Remove the now null pointer from the front of the queue
 		iterationCount++; // Track total number of iterations to solve
 
-		// If the path has reached the target then mark it as the current shortest
-		if (currentPath->isComplete())
-			shortestPath = std::move(currentPath);
-		else if(shortestPath->isNull() || currentPath->moveCount() < shortestPath->moveCount() - 1) 
-		{
-			// Add next level nodes of currentPath to queue. Don't bother if at best their completion length will be equal to the known shortest path
-			std::vector<Path> decedents = currentPath->generateMoveDecendants();
+		// Generate the next level nodes of the current path
+		std::vector<Path> descendants = currentPath->generateMoveDecendants();
 
-			// Only add each node if hasn't happened to wrap back around to the initial puzzle state
-			for (Path decendent : decedents)
-				if (!decendent.isInitialState())
-					pathProgressionQueue.push(std::make_unique<Path>(decendent));
+		// Check each descendant for the target state and add it to the queue if it is not completed
+		for (int i = 0; i < descendants.size(); i++)
+		{
+			Path currentDescendant = descendants.at(i);
+
+			if (currentDescendant.isComplete())
+			{
+				shortestPath = std::make_unique<Path>(currentDescendant);
+				iterationCount += i + 1; // Account for iterations checked during this descendant loop
+				break;
+			}
+			else
+				pathProgressionQueue.push(std::make_unique<Path>(currentDescendant));
 		}
 	}
 
@@ -298,7 +318,7 @@ int main()
 		std::replace(slotMoves.begin(), slotMoves.end(), '7', 'C'); // "C" for center
 
 		std::cout << "Fewest Moves: " << shortestPath.moveCount() << std::endl
-				  << "Iteration Count: " << iterations << std::endl
+				  << "Iteration Count: " << toStringWithLocalGrouping(iterations) << std::endl
 				  << "Move Path (Slot Number): " << slotMoves << std::endl
 				  << "Move Path (Chiplet Number): " << shortestPath.getMovesString(ChipletBased) << std::endl << std::endl;
 
