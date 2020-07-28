@@ -18,6 +18,15 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\MummySolver.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MummySolver.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\resource.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{3A20A0AF-28B5-4983-9BA7-977E81189FC8}</ProjectGuid>
@@ -153,9 +162,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="MummySolver.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
