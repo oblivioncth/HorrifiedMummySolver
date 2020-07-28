@@ -41,7 +41,7 @@ Example usage:
 ![Program usage](https://i.imgur.com/Swbfwu2.png "Solving the above puzzle using the tool")
 
 ## Limitations
-- The program does ensure that the starting positions of each chiplet are restricted to the same degree that the game's rules enforce (i.e. you can place chiplets 1-3 on the 1-3 side of the tablet and vice-versa)
+- The program does not ensure that the starting positions of each chiplet are restricted to the same degree that the game's rules enforce (i.e. you can place chiplets 1-3 on the 1-3 side of the tablet and vice-versa)
 - The calculation does not take into account flipped chiplets, though this doesn't actually change the moves required and only increases the number of actions needed to complete the puzzle
 - There is currently no way to see all possible solutions of the same move length
 - The main calculation loop uses a lightly optimized, near-brute-force approach. Worst-case starting position calculations are still very fast but can take upwards of ~180MB of system RAM
