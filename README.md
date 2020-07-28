@@ -2,7 +2,7 @@
 
 HorrifiedMummySolver is a command line utility that determines the least number of moves required to solve the Mummy monster's tablet puzzle from the board game "Horrified"
 
-See [https://boardgamegeek.com/boardgame/282524/horrified]
+See https://boardgamegeek.com/boardgame/282524/horrified
 
 Additionally, it will display the first set of moves/move path found that completes the puzzle in that number of steps. While the use of all this tools features would somwhat constitute cheating, the intention is for it to be used as a double check to ensure the solution one determined on their own takes the optimal number of moves and to make them aware they should keep trying other moves if not. If truly stuck, the moves list can be used directly.
 
