@@ -303,7 +303,7 @@ int main()
 				  << "Move Path (Chiplet Number): " << shortestPath.getMovesString(ChipletBased) << std::endl << std::endl;
 
 		// Print divider
-		std::cout << std::string(mainPrompt.size(), '-') << std::endl << std::endl;
+		std::cout << std::string(mainPrompt.length(), '-') << std::endl << std::endl;
 
 		// Reset input
 		userInputIsValid = false;
