@@ -8,7 +8,7 @@ Additionally, it will display the first set of moves/move path found that comple
 
 ## Features
 
- - Determine the efficient ways to solve the puzzle based on any starting state
+ - Determine the most efficient way to solve the puzzle based on any starting state
  - See how many permutations of the puzzle state had to be checked in order to determine the minimum number of moves
  - Complete input validation
  - Computation speed is anywhere from near-instant with ideal starting positions to about two seconds in worst-case starting positions
