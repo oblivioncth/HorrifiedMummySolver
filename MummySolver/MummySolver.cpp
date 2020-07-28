@@ -193,7 +193,7 @@ bool hasNumberDuplicates(std::vector<int> check)
 
 // Determines the shortest path to solve the puzzle based on its starting conditions. If multiple paths with the same length are found, only the first is reported.
 // Paths are allocated on the heap to prevent potential stack overflows
-Path getShortestPath(Path initialPath)
+Path getShortestPath(Path initialPath, long& iterationCount)
 {
 	// Shortest Path tracker
 	std::unique_ptr<Path> shortestPath = std::make_unique<Path>();
@@ -210,9 +210,7 @@ Path getShortestPath(Path initialPath)
 		// Current path (must be done in 2 steps due to unique_ptr use)
 		std::unique_ptr<Path> currentPath = std::move(pathProgressionQueue.front()); // Transfer ownership of queue front to this pointer
 		pathProgressionQueue.pop(); // Remove the now null pointer from the front of the queue
-
-		// DEBUG MOVE COUNT
-		int currentLevel = currentPath->moveCount();
+		iterationCount++; // Track total number of iterations to solve
 
 		// If the path has reached the target then mark it as the current shortest
 		if (currentPath->isComplete())
@@ -292,13 +290,15 @@ int main()
 			             startingChiplets.at(3), startingChiplets.at(4), startingChiplets.at(5), CNone); // Center is always empty to start
 
 		// Get shortest path
-		Path shortestPath = getShortestPath(initialPath);
+		long iterations;
+		Path shortestPath = getShortestPath(initialPath, iterations);
 
 		// Print results
 		std::string slotMoves = shortestPath.getMovesString(SlotBased);
 		std::replace(slotMoves.begin(), slotMoves.end(), '7', 'C'); // "C" for center
 
 		std::cout << "Fewest Moves: " << shortestPath.moveCount() << std::endl
+				  << "Iteration Count: " << iterations << std::endl
 				  << "Move Path (Slot Number): " << slotMoves << std::endl
 				  << "Move Path (Chiplet Number): " << shortestPath.getMovesString(ChipletBased) << std::endl << std::endl;
 
