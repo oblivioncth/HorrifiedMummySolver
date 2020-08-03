@@ -28,7 +28,7 @@ The calculation will begin after pressing enter once a valid starting sequence h
 After a solution has been found, the following details are reported:
 - **Iteration Count** - The number of simulated moves that were made before a solution was found
 - **Move Path (Slot Nubmer)** - The exact moves to solve the puzzle from its starting state, based on slot (i.e. a value of 5 means move the chiplet that is in position 5 to the position/slot that is currently empty). A value of 'C' represents the center slot
-- **Move Path (Slot Nubmer)** - The exact moves to solve the puzzle from its starting state, based on slot (i.e. a value of 5 means move the chiplet labeled '5' to the position/slot that is currently empty, regardless of its current position)
+- **Move Path (Chiplet Nubmer)** - The exact moves to solve the puzzle from its starting state, based on chiplet (i.e. a value of 5 means move the chiplet labeled '5' to the position/slot that is currently empty, regardless of its current position)
 
 Both move lists are providing the same exact moves, just from different perspectives.
 
