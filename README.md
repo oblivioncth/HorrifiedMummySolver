@@ -30,7 +30,7 @@ After a solution has been found, the following details are reported:
 - **Move Path (Slot Nubmer)** - The exact moves to solve the puzzle from its starting state, based on slot (i.e. a value of 5 means move the chiplet that is in position 5 to the position/slot that is currently empty). A value of 'C' represents the center slot
 - **Move Path (Chiplet Nubmer)** - The exact moves to solve the puzzle from its starting state, based on chiplet (i.e. a value of 5 means move the chiplet labeled '5' to the position/slot that is currently empty, regardless of its current position)
 
-Both move lists are providing the same exact moves, just from different perspectives.
+Both move lists provide the same exact moves, just from different perspectives.
 
 After this information is reported a divider will be printed and the program will display another prompt for calculating the solution of another initial state. This will continue ad infinitum until the console window is closed externally.
 
