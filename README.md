@@ -53,4 +53,4 @@ Example usage:
  - [ ] Add switch that causes the tool to search for and report all possible solution paths that are the minimum length
 
 ## Source
-This tool was written in C++ 17 along within MSVC2019 and currently only targets Windows Vista and above; however, this tool should be fully portable as it relies on no OS specific libraries. The source includes an easy-to-use .proj file if you wish to build the application in Visual Studio. Other than a C++ 17 capable compiler all files required to compile this software are included, with the exception of a standard make file.
+This tool was written in C++ 17 along within MSVC2019 and currently only targets Windows Vista and above or any GCC version that supports C++17. The source includes an easy-to-use .proj file if you wish to build the application in Visual Studio or a Makefile if you wish to build it in GCC.
